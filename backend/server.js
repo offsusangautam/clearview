@@ -1,30 +1,26 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
-import productRoutes from './routes/routes.js'; // product routes
-import authRoutes from './routes/authRoutes.js'; // 👈 NEW auth routes
-import cors from 'cors'; // Optional but helpful for frontend-backend connection
+import productRoutes from './routes/productRoutes.js';
+import authRoutes from './routes/authRoutes.js'; 
+import cors from 'cors';
 
-// Load environment variables
+
 dotenv.config();
 
-// Initialize Express app
 const app = express();
 
-// Middleware
-app.use(cors()); // allow requests from frontend
-app.use(express.json()); // parse JSON bodies
+app.use(cors());
+app.use(express.json());
 
-// Routes
-app.use("/api/products", productRoutes);
-app.use("/api/auth", authRoutes); // 👈 mount auth routes
+// API routes
+app.use("/api/products", productRoutes );
+app.use("/api/auth", authRoutes); // ✅ only once!
 
-// Root route for testing
+// Basic test route
 app.get("/", (req, res) => {
   res.send("ClearView API is running");
 });
-
-app.use('/api/auth', authRoutes);
 
 // Start server after DB connection
 const PORT = process.env.PORT || 5000;

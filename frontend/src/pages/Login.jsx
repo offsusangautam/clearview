@@ -2,73 +2,68 @@ import React, { useState, useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [error, setError] = useState("");
-
-  const handleChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
 
     try {
-      const response = await fetch("/api/auth/login", {  // Adjust your backend route
+      const res = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
-      if (!response.ok) {
-        setError(data.message || "Login failed");
+      if (!res.ok) {
+        const errorText = await res.text();
+        alert("Login failed: " + errorText);
         return;
       }
 
-      // Assuming backend returns { user, token }
-      login(data.user, data.token);
-
-      navigate("/"); // redirect to homepage after login
+      const data = await res.json();
+      login(data.token); // save token to context + localStorage
+      navigate("/"); // redirect to homepage or dashboard
     } catch (err) {
-      setError("Something went wrong");
-       console.error("Fetch error:", err);
+      console.error("Login error:", err);
+      alert("Something went wrong during login.");
     }
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 mt-20 border rounded shadow">
-      <h2 className="text-2xl mb-4">Login</h2>
-      {error && <p className="mb-4 text-red-600">{error}</p>}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
+      <h2 className="text-2xl font-semibold mb-4">Login</h2>
+      <form onSubmit={handleSubmit}>
         <input
           type="email"
-          name="email"
           placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
+          className="w-full mb-3 p-2 border rounded"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
-          className="border p-2 rounded"
         />
         <input
           type="password"
-          name="password"
           placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
+          className="w-full mb-3 p-2 border rounded"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           required
-          className="border p-2 rounded"
         />
-        <button type="submit" className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+        >
           Login
         </button>
       </form>
     </div>
   );
-}
+};
 
 export default Login;
