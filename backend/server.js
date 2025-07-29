@@ -15,7 +15,7 @@ app.use(express.json());
 
 // API routes
 app.use("/api/products", productRoutes );
-app.use("/api/auth", authRoutes); // ✅ only once!
+app.use("/api/auth", authRoutes); 
 
 // Basic test route
 app.get("/", (req, res) => {
