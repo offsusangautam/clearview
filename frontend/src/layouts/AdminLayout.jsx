@@ -11,10 +11,9 @@ const AdminLayout = () => {
           <Link to="/admin/dashboard" className="hover:underline">
             Dashboard
           </Link>
-          {/* Add more admin links here */}
+         
         </nav>
       </aside>
-
       {/* Main content */}
       <div className="flex-grow p-6">
         <Outlet />

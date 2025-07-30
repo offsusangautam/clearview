@@ -61,4 +61,8 @@ export const loginUser = async (req, res) => {
     console.error('LOGIN error:', error.message);
     res.status(500).json({ success: false, message: 'Server error' });
   }
+  login(data.data);
+console.log("Logged in user:", data.data);
+navigate("/admin/dashboard");
+
 };

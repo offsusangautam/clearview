@@ -1,11 +1,16 @@
-import { useContext } from "react";
-import AuthContext from "../context/AuthContext";
+import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
+
 
 const AdminPrivateRoute = ({ children }) => {
-  const { adminToken } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
-  return adminToken ? children : <Navigate to="/admin/login" />;
+  if (!user || !user.isAdmin) {
+    return <Navigate to="/admin/login" replace />;
+  }
+
+  return children;
 };
 
 export default AdminPrivateRoute;

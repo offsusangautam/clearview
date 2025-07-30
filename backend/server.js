@@ -15,14 +15,14 @@ app.use(express.json());
 
 // API routes
 app.use("/api/products", productRoutes );
-app.use("/api/auth", authRoutes); 
+app.use(authRoutes); 
 
 // Basic test route
 app.get("/", (req, res) => {
   res.send("ClearView API is running");
 });
 
-// Start server after DB connection
+// Start server with DB connect
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {
   await connectDB();
