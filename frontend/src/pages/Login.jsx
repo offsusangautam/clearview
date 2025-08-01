@@ -1,39 +1,52 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useContext(AuthContext);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const { login, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
 
     try {
       const res = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
+      const data = await res.json();
+
       if (!res.ok) {
-        const errorText = await res.text();
-        alert("Login failed: " + errorText);
-        return;
+        throw new Error(data.message || "Login failed");
       }
 
-      const data = await res.json();
-      login(data.token); // save token to context + localStorage
-      navigate("/"); // redirect to homepage or dashboard
+      login(data.data); // full user object (not just token)
     } catch (err) {
       console.error("Login error:", err);
-      alert("Something went wrong during login.");
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      if (user.isAdmin) {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/dashboard");
+      }
+    }
+  }, [user, navigate]);
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
@@ -58,10 +71,12 @@ const Login = () => {
         <button
           type="submit"
           className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+          disabled={loading}
         >
-          Login
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
+      {error && <p className="text-red-500 mt-2">{error}</p>}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-`import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
@@ -69,4 +69,3 @@ function App() {
 }
 
 export default App;
-`

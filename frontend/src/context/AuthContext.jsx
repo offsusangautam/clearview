@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
       return null;
     }
   });
+  
 
   const login = (userData) => {
     console.log("AuthContext login userData:", userData);
