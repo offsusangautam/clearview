@@ -6,8 +6,8 @@ const PublicLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      
-      <main className="flex-grow px-4 sm:px-8 py-6 max-w-7xl mx-auto">
+
+      <main className="flex-grow w-full px-4 sm:px-8 py-6">
         <Outlet />
       </main>
 

@@ -5,6 +5,13 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(),
     tailwindcss()
-    
   ],
+   theme: {
+    extend: {
+      colors: {
+        'primary': '#4B3CF0',
+        'secondary': '#F9C326',
+      },
+    },
+  },
 })
