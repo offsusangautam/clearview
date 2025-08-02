@@ -1,9 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Order from '../models/orderModel.js';
 
-// @desc    Create new order
-// @route   POST /api/orders
-// @access  Private
+//CREATES NEW ORDEER
 const addOrderItems = asyncHandler(async (req, res) => {
   const {
     orderItems,
@@ -35,9 +33,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
   res.status(201).json(createdOrder);
 });
 
-// @desc    Get order by ID
-// @route   GET /api/orders/:id
-// @access  Private
+//GET ORDER BY ID
 const getOrderById = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id).populate('user', 'username email');
 
@@ -49,9 +45,7 @@ const getOrderById = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Update order to paid
-// @route   PUT /api/orders/:id/pay
-// @access  Private
+//UPDATE ORDER TO BE PAID
 const updateOrderToPaid = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id);
 
@@ -73,25 +67,19 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Get logged-in user's orders
-// @route   GET /api/orders/myorders
-// @access  Private
+//getorders
 const getMyOrders = asyncHandler(async (req, res) => {
   const orders = await Order.find({ user: req.user._id });
   res.json(orders);
 });
 
-// @desc    Get all orders (Admin only)
-// @route   GET /api/orders
-// @access  Private/Admin
+
 const getAllOrders = asyncHandler(async (req, res) => {
   const orders = await Order.find({}).populate('user', 'id username');
   res.json(orders);
 });
 
-// @desc    Update order to delivered
-// @route   PUT /api/orders/:id/deliver
-// @access  Private/Admin
+//UPDATE THE ORDERS TO BE DELIVERED ONLY BY ADMIN
 const updateOrderToDelivered = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id);
 

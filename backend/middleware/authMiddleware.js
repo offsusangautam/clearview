@@ -5,7 +5,6 @@ import User from '../models/user.js';
 export const protect = async (req, res, next) => {
   let token;
 
-  // Check if the Authorization header with Bearer token is present
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')

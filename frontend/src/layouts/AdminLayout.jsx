@@ -1,4 +1,4 @@
-// src/layouts/AdminLayout.jsx
+
 import { Outlet, Link } from "react-router-dom";
 
 const AdminLayout = () => {
