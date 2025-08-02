@@ -58,9 +58,9 @@ function App() {
               </AdminPrivateRoute>
             }
           >
-            {/* Nested admin routes */}
+            {/* Nested admin routes use relative paths */}
             <Route path="dashboard" element={<AdminDashboard />} />
-            {/* Add more admin routes here */}
+           
           </Route>
         </Routes>
       </Router>

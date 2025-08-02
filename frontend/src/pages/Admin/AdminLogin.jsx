@@ -30,7 +30,6 @@ const AdminLogin = () => {
       if (!data.data.isAdmin) throw new Error("Not an admin user");
 
       login(data.data);
-      // Don't navigate here immediately — wait for user state update
     } catch (err) {
       setError(err.message);
     }

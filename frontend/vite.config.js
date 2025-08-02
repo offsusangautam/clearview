@@ -9,8 +9,8 @@ export default defineConfig({
    theme: {
     extend: {
       colors: {
-        'primary': '#4B3CF0',
-        'secondary': '#F9C326',
+        "primary": "#4B3CF0",
+        "secondary": "#F9C326",
       },
     },
   },

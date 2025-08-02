@@ -1,5 +1,12 @@
 import Header from "../components/Header";
 
+// Category image map (can be relative paths from public folder)
+const categoryImages = {
+  Men: "men-1.png",
+  Women: "woman-1.png",
+  Sport: "sport-1.jpg",
+};
+
 const Home = () => {
   return (
     <div className="bg-gradient-to-br from-slate-100 via-white to-slate-100 min-h-screen w-full text-gray-800">
@@ -22,7 +29,7 @@ const Home = () => {
 
         <div className="flex-1 max-w-md md:max-w-xl mx-auto">
           <img
-            src="/images/hero-sunglasses.jpg"
+            src="men-1.png"
             alt="Hero - Sunglasses"
             className="w-full rounded-xl shadow-lg object-cover"
           />
@@ -41,10 +48,12 @@ const Home = () => {
               href={`/category/${category.toLowerCase()}`}
               className="group bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 overflow-hidden"
             >
-              <div className="h-48 bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-400 text-sm">
-                  Image of {category} Collection
-                </span>
+              <div className="h-48 bg-gray-200 overflow-hidden">
+                <img
+                  src={categoryImages[category]}
+                  alt={`${category} Collection`}
+                  className="h-full w-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
               <div className="p-4 text-center">
                 <h3 className="text-lg font-semibold text-gray-800 group-hover:text-brand-blue">
@@ -76,7 +85,7 @@ const Home = () => {
 
           <div className="w-full max-w-sm mx-auto">
             <img
-              src="/images/summer-sale.jpg"
+              src="men-1.png"
               alt="Summer Sale"
               className="rounded-xl shadow-lg object-cover"
             />
