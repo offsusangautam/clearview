@@ -16,6 +16,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import AdminPrivateRoute from "./components/AdminPrivateRoute";
 
 import { AuthProvider } from "./context/AuthContext";
+import Product from "./pages/Product";
 
 function App() {
   return (
@@ -25,19 +26,13 @@ function App() {
           {/* Public Layout Routes */}
           <Route element={<PublicLayout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/product" element={<Product/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/cart" element={<Cart/>} />
 
             {/* User Protected Routes */}
-             <Route
-    path="/cart"
-    element={
-      <PrivateRoute>
-        <Cart />
-      </PrivateRoute>
-    }
-  />
+      
   <Route
     path="/checkout"
     element={
