@@ -30,23 +30,23 @@ function App() {
             <Route path="/signup" element={<Signup />} />
 
             {/* User Protected Routes */}
-            <Route
-              path="/cart"
-              element={
-                <PrivateRoute>
-                  <Cart />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/checkout"
-              element={
-                <PrivateRoute>
-                  <Checkout />
-                </PrivateRoute>
-              }
-            />
-          </Route>
+             <Route
+    path="/cart"
+    element={
+      <PrivateRoute>
+        <Cart />
+      </PrivateRoute>
+    }
+  />
+  <Route
+    path="/checkout"
+    element={
+      <PrivateRoute>
+        <Checkout />
+      </PrivateRoute>
+    }
+  />
+</Route>
 
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />

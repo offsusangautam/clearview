@@ -59,7 +59,7 @@ const Header = () => {
             Home
           </Link>
           <Link
-            to="/"
+            to="/product"
             className="hover:text-[#F9C326] transition py-2 sm:py-0"
             onClick={() => setMenuOpen(false)}
           >
